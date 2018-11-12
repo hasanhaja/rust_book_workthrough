@@ -1,4 +1,7 @@
-pub fn first_word(s: &String) -> &str {
+//pub fn first_word(s: &String) -> &str {
+// This signature is better because we can take
+// slice of str literals and Strings
+pub fn first_word(s: &str) -> &str {
         let bytes = s.as_bytes();
 
         for (i, &item) in bytes.iter().enumerate() {
