@@ -1,38 +1,33 @@
-mod structs;
+mod enums;
 
-use structs::*;
+use enums::Message;
+use enums::action;
+
 #[allow(unused_variables, dead_code)]
 fn main() {
-    let hasan = Person {
-        name: String::from("Hasan"),
-        email: String::from("hasan@haja.com"),
-        age: 84,
+    let quit = Message::Quit;
+    let write = Message::Write(String::from("Hello world"));
+    let color = Message::ChangeColor(2,3,4);
+
+    // NOTE: Rust uses snakecase for function names and variable names
+    let move_pt = Message::Move {
+        x: 23,
+        y: 13,
     };
 
-    println!("{0}'s email is: {1}.\n{0}'s {2} years old", hasan.name, hasan.email, hasan.age);
+    let ignore = Message::Ignore;
 
-    let triangle = Triangle {
-        base: 8,
-        height: 10,
-    };
+    action(&quit);
+    action(&write);
+    action(&color);
+    action(&move_pt);
+    action(&ignore);
 
-    let rect = Rectangle {
-        width: 10,
-        height: 12,
-    };
-
-    let square = Rectangle::square(5);
-
-    println!("{:?}", square);
-    println!("{}", square.area());
-
-    println!("{}", rect.can_hold(&square));
-
-    println!("{:?}", triangle);
-    println!("{:#?}", triangle);
-    //println!("Area of the triangle is {}.", area(&triangle));
-    println!("{}", triangle.area());
-
+    quit.call();
+    write.call();
+    color.call();
+    move_pt.call();
+    ignore.call();
 }
 
 
