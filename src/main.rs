@@ -1,7 +1,9 @@
 mod enums;
+mod mod_system;
 
 use enums::Message;
 use enums::action;
+use mod_system::*;
 
 #[allow(unused_variables, dead_code)]
 fn main() {
@@ -17,6 +19,28 @@ fn main() {
 
     let ignore = Message::Ignore;
 
+    let some_u8_value = Some(3u8);
+
+    if let Some(3) = some_u8_value {
+        println!("threeeeeeeee");
+    } else {
+        // if let could also have an else block
+        // However, I don't why when the match block is more concise
+    }
+
+    // This is identical to this match block
+    match some_u8_value {
+        Some(3) => println!("three"),
+        _ => (),
+    }
+    // but it is much less verbose. It's basically some syntax sugar
+    // However, you lose the exhaustive pattern matching
+
+    // SIDENOTE: I think the variables below are identical
+    let a = "hello".to_string();
+    // I think the method above just invokes from
+    let b = String::from("hello");
+
     action(&quit);
     action(&write);
     action(&color);
@@ -28,6 +52,10 @@ fn main() {
     color.call();
     move_pt.call();
     ignore.call();
+
+    mod_system::print_greeting();
+    mod_system::sub_mod::print_another_greeting("Hello");
+
 }
 
 
