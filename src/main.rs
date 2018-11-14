@@ -40,6 +40,7 @@ fn main() {
     let a = "hello".to_string();
     // I think the method above just invokes from
     let b = String::from("hello");
+    // Therefore, String::from will be faster than to_string
 
     action(&quit);
     action(&write);
