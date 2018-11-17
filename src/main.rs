@@ -1,11 +1,11 @@
 mod collections;
 
-use collections::enum_vectors;
+use collections::hashmap_ops;
 
 #[allow(unused_variables, dead_code)]
 fn main() {
 
-    enum_vectors();
+    hashmap_ops();
 
 }
 
