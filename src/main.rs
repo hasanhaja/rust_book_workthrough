@@ -1,11 +1,11 @@
 mod collections;
 
-use collections::hashmap_ops;
+use collections::exercise;
 
 #[allow(unused_variables, dead_code)]
 fn main() {
 
-    hashmap_ops();
+    exercise();
 
 }
 

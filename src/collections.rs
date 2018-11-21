@@ -196,6 +196,92 @@ pub fn hashmap_ops() {
 
 // TODO("Do the exercises at the end of chapter 8")
 #[allow(unused_variables, dead_code)]
-pub fn hashmap_exercise() {
-    unimplemented!();
+pub fn exercise() {
+
+    vec_mean();
+    vec_median();
+    vec_mode();
+
+}
+
+fn vec_mode() {
+
+    use std::collections::HashMap;
+
+    let mut tracker = HashMap::new();
+
+    let mut int_list = vec![2,2,2,2,2,2,44,6,11,12,23,2,6,6,6,5];
+
+    int_list.sort();
+
+    for num in int_list {
+        let count = tracker.entry(num).or_insert(0);
+        *count += 1;       // since count has a type of mutable reference
+        // you deref it to update the value
+        // .or_insert returns a  mutable reference to the value of the key
+    }
+
+
+    //let mut current_highest: Option<i32> = None;
+    //let mut key: Option<i32> = None;
+
+
+    let mut current_highest= 0;
+    let mut key = 0;
+
+    for elem in &tracker {
+
+        if elem.1 >= &current_highest {
+
+            // current_highest = Some((elem.1).clone());
+            // key = Some((elem.0).clone());
+
+            current_highest = (elem.1).clone();
+            key = (elem.0).clone();
+        } else {
+            continue;
+        }
+    }
+
+    // What if there are two keys with the same number of times seen?
+    // This does not account for duplicates and I think it might be error prone
+    // TODO("Make this safer; Perhaps with Option")
+
+    println!("Key: {}, Times: {}", key, current_highest);
+
+    println!("Tracker: {:?}", tracker);
+
+
+}
+
+fn vec_median () {
+
+    //let mut int_list = vec![1,2,2,2,2,2,2,3,3,3,4,4,5];
+    let mut int_list = vec![2,44,6,11,12,23];
+    int_list.sort();
+
+    let median = int_list[(int_list.len()/2) as usize];
+
+    println!("The median is: {}", median);
+}
+
+fn vec_mean() {
+    let int_list = vec![1,2,2,3,3,3,4,4,5];
+    let mut sum = 0;
+
+
+    for elem in &int_list {
+        sum += elem;
+    }
+
+    let mean = sum / int_list.len();
+
+    // Instead of sum, I can use the total because it does the same thing
+    // iter, I think, is the equivalent of stream() in java, in this context
+    let total = int_list.iter().fold(0, |x, sum| sum+x);
+
+    println!("{}", total);
+    println!("{}", total/int_list.len());
+    println!("{}", mean);
+
 }
