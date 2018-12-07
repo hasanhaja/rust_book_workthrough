@@ -1,11 +1,11 @@
-mod collections;
+mod errors;
 
-use collections::exercise;
+use errors::recoverable;
 
 #[allow(unused_variables, dead_code)]
 fn main() {
 
-    exercise();
+    recoverable();
 
 }
 
