@@ -1,10 +1,8 @@
-extern crate rand;
-
-use std::io;
-use std::cmp::Ordering;
-
-// TODO("Why does this have to be self::rand::Rng?")
-use self::rand::Rng;
+use std::{
+    cmp::Ordering,
+    io,
+};
+use rand::Rng;
 
 
 pub fn guessing_game() {
