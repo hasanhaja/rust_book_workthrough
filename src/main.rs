@@ -1,21 +1,19 @@
-mod errors;
+mod guessing_game;
 
-use std::{
-    error::Error,
-    fs::File,
+// crate refers to current crate.
+// without it, you're looking for an external crate
+use crate::guessing_game::{
+    guessing_game,
+    Guess
 };
 
-// Since ? only works for functions returning Result, you can make main return Result
-// Box<dyn Error> is a trait object (will be discussed in Ch17).
-// For now, read this as "any kind of Error"
 #[allow(unused_variables, dead_code)]
-fn main() -> Result<(), Box<dyn Error>> {
+fn main() {
 
-    errors::recoverable();
-
-    let f = File::open("hello.txt")?;
-
-    Ok(())
+    // This won't work
+    // let guess = guessing_game::Guess {value: 200};
+    let guess = Guess::new(2);
+    guessing_game();
 
 }
 
