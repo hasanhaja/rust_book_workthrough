@@ -1,46 +1,42 @@
 mod generics;
 
-use crate::generics::{
-    largest,
-    largest_2,
-    Point,
-    Tweet,
-    Summary,
-    notify,
+use crate::generics::lifetimes::{
+    longest,
+    ImportantExcerpt,
+    longest_with_an_announcement,
 };
 
 #[allow(unused_variables, dead_code)]
 fn main() {
 
-    let num_list = vec![21, 54, 12, 11, 100, 32];
-    let result = largest(&num_list);
-    println!("The largest number is {}", result);
+    // This will work as intended
+    let string1 = String::from("abcd");
+    let string2 = "xyz";
 
-    let result = largest_2(&num_list);
-    println!("2: The largest number is {}", result);
+    let result = longest(string1.as_str(), string2);
 
-    let char_list = vec!['y', 'm', 'a', 'q'];
-    let result = largest(&char_list);
-    println!("The largest number is {}", result);
+    println!("The longest string is: {}", result);
 
-    let result = largest_2(&char_list);
-    println!("2: The largest number is {}", result);
+    // Since the lifetimes of s1 and s2 aren't the same, this would not compile.
+//    let s1 = String::from("hasan");
+//    let result;
+//    {
+//        let s2 = "khaleel".to_string();
+//        result = longest(s1.as_str(), s2.as_str());
+//    }
+//
+//    println!("{}", result);
 
+    let novel = String::from("I come from Des Moines. Somebody had to.");
+    let first_sentence = novel.split('.')
+        .next()
+        .expect("Could not find a '.'");
+    let i = ImportantExcerpt::new(first_sentence);
+    println!("{:?}", i);
+    let j = i.announce_and_return_part("WE, ARE VENOM!");
+    println!("{}", j);
 
-    let p = Point::new(2, 3);
-    println!("{}", p.x());
-
-    let tweet = Tweet {
-        username: String::from("rust_lang"),
-        content: String::from("still learning rust and trying to get productive with it"),
-        retweet: false,
-        reply: false,
-    };
-
-    //notify(&tweet);    // This won't work here, because tweet gets moved here
-    println!("1 new tweet: {}", tweet.summarize());
-    notify(tweet);
-
+    let result = longest_with_an_announcement(string1.as_str(), string2, String::from("HELLLOOOO!!"));
 
 }
 
