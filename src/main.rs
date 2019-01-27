@@ -1,43 +1,53 @@
-mod generics;
-
-use crate::generics::lifetimes::{
-    longest,
-    ImportantExcerpt,
-    longest_with_an_announcement,
-};
+mod structs;
+use crate::structs::Rectangle;
 
 #[allow(unused_variables, dead_code)]
 fn main() {
+    println!("Hello world");
+}
 
-    // This will work as intended
-    let string1 = String::from("abcd");
-    let string2 = "xyz";
+pub fn add_two(num: i32) -> i32 {
+    num + 2
+}
 
-    let result = longest(string1.as_str(), string2);
+#[cfg(test)]
+mod tests {
+    // Is there another way to do this?
+    use super::*;
 
-    println!("The longest string is: {}", result);
+    #[test]
+    fn it_adds_two() {
+        assert_eq!(4, add_two(2));
+    }
 
-    // Since the lifetimes of s1 and s2 aren't the same, this would not compile.
-//    let s1 = String::from("hasan");
-//    let result;
-//    {
-//        let s2 = "khaleel".to_string();
-//        result = longest(s1.as_str(), s2.as_str());
+    #[test]
+    fn it_works() {
+        assert_eq!(2 + 2, 4);
+    }
+    #[test]
+    fn another_one() {
+        assert_eq!(4 + 4, 8);
+    }
+//    #[test]
+//    fn fails() {
+//        panic!("This test will fail");
 //    }
-//
-//    println!("{}", result);
 
-    let novel = String::from("I come from Des Moines. Somebody had to.");
-    let first_sentence = novel.split('.')
-        .next()
-        .expect("Could not find a '.'");
-    let i = ImportantExcerpt::new(first_sentence);
-    println!("{:?}", i);
-    let j = i.announce_and_return_part("WE, ARE VENOM!");
-    println!("{}", j);
+    #[test]
+    fn larger_can_hold_smaller() {
+        let larger = Rectangle { width: 7, height: 8 };
+        let smaller = Rectangle { width: 1, height: 5 };
 
-    let result = longest_with_an_announcement(string1.as_str(), string2, String::from("HELLLOOOO!!"));
+        assert!(larger.can_hold(&smaller));
+    }
 
+    #[test]
+    fn smaller_cannot_hold_larger() {
+        let larger = Rectangle { width: 7, height: 8 };
+        let smaller = Rectangle { width: 1, height: 5 };
+
+        assert!(!smaller.can_hold(&larger));
+    }
 }
 
 
